@@ -1,22 +1,24 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import ForeignKey
 
 db = SQLAlchemy()
 #db.Model = declarative_db.Model()
 
-# class User(db.Model):
-#     __tablename__ = 'user'
-#     # Here we define columns for the table person
-#     # Notice that each column is also a normal Python instance attribute.
-#     id = Column(Integer, primary_key=True)
-#     email = Column(String(250), nullable=False)
-#     username = Column(String(30), nullable=False)
-#     password = Column(String(30), nullable=False)
+class User(db.Model):
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True, unique = True)
+    name = db.Column(db.String(250), nullable=True)
+    email = db.Column(db.String(250), nullable=False, unique = True)
+    username = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(30), nullable=False)
 
-#     def serialize(self):
-#         return{
-#             "email": self.email,
-#             "username": self.username,
-#         }
+    def serialize(self):
+        return{
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "username": self.username,
+        }
 
 class Planets(db.Model):
     __tablename__ = "planets"
@@ -92,13 +94,13 @@ class People(db.Model):
             # "vehicle_id": self.vehicle_id
         }
     
-# class Favorites(db.Model):
-#     __tablename__ = "favorites"
-#     id = Column(Integer, primary_key=True)
-#     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-#     person_id = Column(Integer, ForeignKey('people.id'), nullable=True)
-#     planet_id = Column(Integer, ForeignKey('planets.id'), nullable=True)
-#     vehicle_id = Column(Integer, ForeignKey('vehicles.id'), nullable=True)
+class Favorites(db.Model):
+    __tablename__ = "favorites"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, ForeignKey('user.id'), nullable=False)
+    person_id = db.Column(db.Integer, ForeignKey('people.id'), nullable=True)
+    planet_id = db.Column(db.Integer, ForeignKey('planets.id'), nullable=True)
+    vehicle_id = db.Column(db.Integer, ForeignKey('vehicles.id'), nullable=True)
 
 #     user = relationship(User)
 #     people = relationship(people)
@@ -106,13 +108,13 @@ class People(db.Model):
 #     vehicles = relationship(Vehicles)
     
 
-#     def serialize(self):
-#         return{
-#             "user_id": self.user_id,
-#             "person_id": self.person_id,
-#             "planet_id": self.planet_id,
-#             "vehicle_id": self.vehicle_id
-#         }
+    def serialize(self):
+        return{
+            "user_id": self.user_id,
+            "person_id": self.person_id,
+            "planet_id": self.planet_id,
+            "vehicle_id": self.vehicle_id
+        }
     
 ## Draw from SQLAlchemy db.Model
 # render_er(db.Model, 'diagram.png')

@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, People
+from models import db, People, Planets, Vehicles
 #from models import Person
 
 app = Flask(__name__)
@@ -75,14 +75,14 @@ def handle_get_one_vehicle(vehicle_id):
         return jsonify(vehicle1.serialize()), 200
     return "Vehicle not found.", 404
 
-# # users
-# # get all users
-# @app.route('/users', methods=['GET'])
-# def handle_get_all_users():
-#     response_body = {
-#         "msg": "Hello, this is your GET /users response "
-#     }
-#     return jsonify(response_body), 200
+# users
+# get all users
+@app.route('/users', methods=['GET'])
+def handle_get_all_users():
+    response_body = {
+        "msg": "Hello, this is your GET /users response "
+    }
+    return jsonify(response_body), 200
 # # favorites
 # # get all favorites from current user # delete planet, delete people
 # @app.route('/users/favorites', methods=['GET'])
