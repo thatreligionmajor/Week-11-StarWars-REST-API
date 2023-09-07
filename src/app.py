@@ -84,7 +84,7 @@ def handle_get_all_users():
     }
     return jsonify(response_body), 200
 # # favorites
-# # get all favorites from current user # delete planet, delete people
+# get all favorites from current user # delete planet, delete people
 # @app.route('/users/favorites', methods=['GET'])
 # def handle_get_all_user_favorites():
 #     response_body = {

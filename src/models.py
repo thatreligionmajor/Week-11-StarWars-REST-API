@@ -31,6 +31,7 @@ class Planets(db.Model):
     climate = db.Column(db.String(30), nullable=False)
     terrain = db.Column(db.String(30), nullable=True)
     description = db.Column(db.String(30), nullable=True)
+    favorite = db.relationship("Favorites", backref="planets")
     
     def serialize(self):
         return{
@@ -54,6 +55,7 @@ class Vehicles(db.Model):
     length = db.Column(db.String(50), nullable=True)
     crew = db.Column(db.String(50), nullable=True)
     passengers = db.Column(db.String(50), nullable=True)
+    favorite = db.relationship("Favorites", backref="vehicles")
     
     def serialize(self):
         return{
@@ -80,6 +82,7 @@ class People(db.Model):
     # vehicle_id = db.Column(db.Integer, ForeignKey('vehicles.id'))
     # planet = relationship(Planets)
     # vehicle = relationship(Vehicles)
+    favorite = db.relationship("Favorites", backref="people")
     
     def serialize(self):
         return{
@@ -106,10 +109,10 @@ class Favorites(db.Model):
 #     people = relationship(people)
 #     planets = relationship(Planets)
 #     vehicles = relationship(Vehicles)
-    
 
     def serialize(self):
         return{
+            "id": self.id,
             "user_id": self.user_id,
             "person_id": self.person_id,
             "planet_id": self.planet_id,
