@@ -40,7 +40,9 @@ def sitemap():
 #get all people
 @app.route('/people', methods=['GET'])
 def handle_get_all_people():
-    return "Hello people"
+    all_people = People.query.all()
+    serialized_people = [person.serialize() for person in all_people]
+    return jsonify(serialized_people), 200
 #get one person
 @app.route('/people<int:person_id>', methods=['PUT', 'GET'])
 def handle_get_one_person(person_id):
