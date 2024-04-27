@@ -86,7 +86,7 @@ class People(db.Model):
     
     def serialize(self):
         return{
-            "persons_name": self.name,
+            "persons_name": self.persons_name,
             "height": self.height,
             "mass": self.mass,
             "hair_color": self.hair_color,
