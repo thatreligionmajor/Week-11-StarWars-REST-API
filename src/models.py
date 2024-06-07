@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 #db.Model = declarative_db.Model()
@@ -31,7 +32,8 @@ class Planets(db.Model):
     climate = db.Column(db.String(30), nullable=False)
     terrain = db.Column(db.String(30), nullable=True)
     description = db.Column(db.String(30), nullable=True)
-    favorite = db.relationship("Favorites", backref="planets")
+    
+    # favorite = db.relationship("Favorites", backref="planets")
     
     def serialize(self):
         return{
@@ -55,7 +57,8 @@ class Vehicles(db.Model):
     length = db.Column(db.String(50), nullable=True)
     crew = db.Column(db.String(50), nullable=True)
     passengers = db.Column(db.String(50), nullable=True)
-    favorite = db.relationship("Favorites", backref="vehicles")
+    
+    # favorite = db.relationship("Favorites", backref="vehicles")
     
     def serialize(self):
         return{
@@ -78,11 +81,10 @@ class People(db.Model):
     skin_color = db.Column(db.String(50), nullable=True)
     eye_color = db.Column(db.String(50), nullable=True)
     gender = db.Column(db.String(50), nullable=True)
-    # planet_id = db.Column(db.Integer, ForeignKey('planets.id'))
-    # vehicle_id = db.Column(db.Integer, ForeignKey('vehicles.id'))
+
     # planet = relationship(Planets)
     # vehicle = relationship(Vehicles)
-    favorite = db.relationship("Favorites", backref="people")
+    # favorite = db.relationship("Favorites", backref="people")
     
     def serialize(self):
         return{
@@ -93,8 +95,6 @@ class People(db.Model):
             "skin_color": self.skin_color,
             "eye_color": self.eye_color,
             "gender": self.gender,
-            # "planet_id": self.planet_id,
-            # "vehicle_id": self.vehicle_id
         }
     
 class Favorites(db.Model):
@@ -105,10 +105,10 @@ class Favorites(db.Model):
     planet_id = db.Column(db.Integer, ForeignKey('planets.id'), nullable=True)
     vehicle_id = db.Column(db.Integer, ForeignKey('vehicles.id'), nullable=True)
 
-#     user = relationship(User)
-#     people = relationship(people)
-#     planets = relationship(Planets)
-#     vehicles = relationship(Vehicles)
+    user = relationship("User", backref="user_favorites")
+    person = relationship("People", backref="person_favorites")
+    planet = relationship("Planets", backref="planet_favorites")
+    vehicle = relationship("Vehicles", backref="vehicle_favorites")  
 
     def serialize(self):
         return{
