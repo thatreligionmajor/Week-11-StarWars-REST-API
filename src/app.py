@@ -8,8 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, People, Planets, Vehicles
-#from models import Person
+from models import db, User, People, Planets, Vehicles
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -85,6 +84,7 @@ def handle_get_all_users():
         "msg": "Hello, this is your GET /users response "
     }
     return jsonify(response_body), 200
+
 # # favorites
 # get all favorites from current user # delete planet, delete people
 # @app.route('/users/favorites', methods=['GET'])
