@@ -32,9 +32,7 @@ class Planets(db.Model):
     climate = db.Column(db.String(30), nullable=False)
     terrain = db.Column(db.String(30), nullable=True)
     description = db.Column(db.String(30), nullable=True)
-    
-    # favorite = db.relationship("Favorites", backref="planets")
-    
+        
     def serialize(self):
         return{
             "diameter": self.diameter,
@@ -57,9 +55,7 @@ class Vehicles(db.Model):
     length = db.Column(db.String(50), nullable=True)
     crew = db.Column(db.String(50), nullable=True)
     passengers = db.Column(db.String(50), nullable=True)
-    
-    # favorite = db.relationship("Favorites", backref="vehicles")
-    
+        
     def serialize(self):
         return{
             "model": self.model,
@@ -81,10 +77,6 @@ class People(db.Model):
     skin_color = db.Column(db.String(50), nullable=True)
     eye_color = db.Column(db.String(50), nullable=True)
     gender = db.Column(db.String(50), nullable=True)
-
-    # planet = relationship(Planets)
-    # vehicle = relationship(Vehicles)
-    # favorite = db.relationship("Favorites", backref="people")
     
     def serialize(self):
         return{
