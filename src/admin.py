@@ -31,5 +31,5 @@ def setup_admin(app):
     admin.add_view(ModelView(Planets, db.session))
     admin.add_view(ModelView(Vehicles, db.session))
 
-    # You can duplicate that line to add new models
+    # You can duplicate this line to add new models:
     # admin.add_view(ModelView(YourModelName, db.session))
